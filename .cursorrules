@@ -1,0 +1,53 @@
+# AI Image Generator — Cursor Rules
+
+## Project Overview
+AI image generation web app with text-to-image and image-to-image workflows.
+- Backend: Express (Node.js), no build step, no TypeScript
+- Frontend: Bootstrap 5 + vanilla JavaScript
+- Providers: DashScope (Alibaba Cloud), Google Gemini, Volcengine (Jimeng)
+
+## Architecture
+- `server.js` — Express entry point only, delegates to `src/`
+- `src/routes/` — Route handlers (generate, imageToImage, access)
+- `src/providers/` — Provider implementations (dashscope, gemini, volcengine)
+- `src/middleware/` — Express middleware (auth, CORS, rate limiter, upload, error handler)
+- `src/utils/` — Utilities (config, logger, crypto, file, url)
+- `public/app.js` — All frontend logic (vanilla JS, ~1280 lines)
+- `public/index.html` — Single-page UI
+
+## Code Style
+- No TypeScript — this is a plain JavaScript project
+- No semicolons (inconsistent in existing code, don't add them)
+- Use `const` by default, `let` when reassignment needed
+- CommonJS modules (`require`/`module.exports`), no ES modules
+- JSDoc comments for exported functions
+- Use the existing `log()` utility from `src/utils/logger.js` for debug output
+
+## Key Conventions
+- API responses follow `{ imageUrls: string[] }` pattern for image endpoints
+- API errors return `{ error: string }` with appropriate HTTP status
+- Provider selection via `provider` field: `dashscope` (default), `gemini`, `volcengine`
+- Model config lives in `MODEL_CONFIG` and `ALLOWED_SIZES_BY_MODEL` in `src/utils/config.js`
+- Volcengine credentials use `AK:SK` format (colon-separated)
+- Volcengine `image_urls` must be publicly reachable HTTP(S) URLs, never `data:` URLs
+
+## Don'ts
+- Don't introduce TypeScript, bundlers, or build steps
+- Don't add frontend frameworks (React, Vue, etc.)
+- Don't use ES module syntax (`import`/`export`)
+- Don't add test frameworks unless explicitly asked
+- Don't modify the `.env.example` structure without good reason
+- Don't expose API keys in logs or responses
+- Don't remove the brute-force protection on access control
+
+## When Adding Models
+1. Add to `MODEL_CONFIG` in `src/utils/config.js`
+2. Add size constraints to `ALLOWED_SIZES_BY_MODEL` if applicable
+3. Update provider implementation if model has special requirements
+4. Update both `README.md` and `README.zh.md`
+
+## When Adding Providers
+1. Create `src/providers/newprovider.js`
+2. Register in `src/providers/index.js`
+3. Add env vars to `.env.example`
+4. Update documentation

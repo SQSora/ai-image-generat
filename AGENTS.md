@@ -2,13 +2,22 @@
 
 ## Architecture
 
-Single Express server (`server.js`, ~1500 lines) serves both the API and static frontend. No build step, no bundler, no TypeScript.
+Express server (`server.js`) serves both the API and static frontend. No build step, no bundler, no TypeScript.
 
-- `server.js` — entire backend: API routes, Volcengine HMAC-SHA256 signing, DashScope async polling, Gemini image generation, rate limiting, upload handling, frontdoor access control
+- `server.js` — Express entry point, sets up middleware and starts server
+- `src/routes/` — Route handlers: `generate.routes.js` (text-to-image), `imageToImage.routes.js` (image-to-image), `access.routes.js` (access control), `auth.throttle.js` (brute-force protection)
+- `src/providers/` — Provider implementations: `dashscope.js`, `gemini.js`, `volcengine.js`, with `index.js` as factory
+- `src/middleware/` — Express middleware: `auth.js`, `cors.js`, `errorHandler.js`, `rateLimiter.js`, `upload.js`
+- `src/utils/` — Utilities: `config.js` (env + model definitions), `logger.js`, `crypto.js` (HMAC signing), `file.js`, `url.js`
 - `public/index.html` — single-page UI (Bootstrap 5 CDN)
 - `public/app.js` — all frontend logic (~1280 lines, vanilla JS)
+- `public/robots.txt` — crawler permissions (explicitly allows AI bots)
 - `jimeng-md/` — Chinese-language Volcengine Jimeng API reference docs (not code)
 - `public/uploads/` — temp storage for Volcengine i2i uploads; auto-cleaned 5 min after generation
+- `llms.txt` — LLM-friendly project summary (follows llmstxt.org standard)
+- `llms-full.txt` — full documentation concatenated for LLMs
+- `.cursorrules` — rules for Cursor AI assistant
+- `.github/copilot-instructions.md` — instructions for GitHub Copilot
 
 ## Commands
 
@@ -53,10 +62,10 @@ The `provider` field in API requests selects the backend: `dashscope` (default),
 
 ## File Boundaries
 
-- All backend logic is in `server.js` — there are no separate route files, controllers, or middleware modules
+- Backend route handlers are in `src/routes/` — changes to API contract require updating both routes and `public/app.js`
+- Provider implementations are in `src/providers/` — each has `generateTextToImage()` and `generateImageToImage()` methods
 - All frontend logic is in `public/app.js` — no framework, no modules, no build
-- Changes to API contract require updating both `server.js` and `public/app.js`
-- The `MODEL_CONFIG` and `ALLOWED_SIZES_BY_MODEL` objects in `server.js` define valid sizes per model — update both when adding models
+- The `MODEL_CONFIG` and `ALLOWED_SIZES_BY_MODEL` objects in `src/utils/config.js` define valid sizes per model — update both when adding models
 
 ## Gitignore Notes
 

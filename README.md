@@ -331,14 +331,27 @@ server {
 
 ```text
 ai-image-generator/
-├── server.js              # Express backend (all API logic)
+├── server.js              # Express entry point
+├── src/
+│   ├── routes/            # API route handlers
+│   ├── providers/         # AI provider implementations
+│   ├── middleware/         # Express middleware
+│   └── utils/             # Config, logger, crypto, file helpers
 ├── public/
 │   ├── index.html         # Single-page UI
 │   ├── app.js             # Frontend logic (vanilla JS)
+│   ├── robots.txt         # Crawler permissions (AI bots welcome)
 │   ├── favicon/
 │   └── uploads/           # Temp files for Volcengine i2i (auto-cleaned)
 ├── jimeng-md/             # Volcengine Jimeng API reference docs (Chinese)
 ├── .env.example
+├── llms.txt               # LLM-friendly project summary
+├── llms-full.txt          # Full documentation for LLMs
+├── AGENTS.md              # Architecture guide for AI agents
+├── .cursorrules           # Cursor AI assistant rules
+├── CONTRIBUTING.md        # Contribution guidelines
+├── SECURITY.md            # Security policy
+├── CHANGELOG.md           # Version history
 ├── README.md
 └── README.zh.md
 ```

@@ -330,14 +330,27 @@ server {
 
 ```text
 ai-image-generator/
-├── server.js              # Express 后端（全部 API 逻辑）
+├── server.js              # Express 入口
+├── src/
+│   ├── routes/            # API 路由处理器
+│   ├── providers/         # AI 提供商实现
+│   ├── middleware/         # Express 中间件
+│   └── utils/             # 配置、日志、加密、文件工具
 ├── public/
 │   ├── index.html         # 单页 UI
 │   ├── app.js             # 前端逻辑（原生 JS）
+│   ├── robots.txt         # 爬虫许可（欢迎 AI Bot）
 │   ├── favicon/
 │   └── uploads/           # 火山图生图临时文件（自动清理）
 ├── jimeng-md/             # 即梦 API 参考文档（中文）
 ├── .env.example
+├── llms.txt               # LLM 友好的项目摘要
+├── llms-full.txt          # LLM 完整文档
+├── AGENTS.md              # AI Agent 架构指南
+├── .cursorrules           # Cursor AI 助手规则
+├── CONTRIBUTING.md        # 贡献指南
+├── SECURITY.md            # 安全策略
+├── CHANGELOG.md           # 版本历史
 ├── README.md
 └── README.zh.md
 ```

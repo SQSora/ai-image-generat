@@ -1,0 +1,58 @@
+# AI Image Generator
+
+> A production-oriented AI image generation web app with text-to-image and image-to-image workflows, powered by DashScope, Google Gemini, and Volcengine (Jimeng).
+
+## Overview
+
+This is a Node.js/Express web application that provides a unified interface for generating AI images across multiple providers. It supports both text-to-image (generate images from text prompts) and image-to-image (transform reference images) workflows.
+
+## Tech Stack
+
+- **Backend**: Node.js + Express (no build step, no TypeScript)
+- **Frontend**: Bootstrap 5 + vanilla JavaScript (single-page app)
+- **Providers**: DashScope (Alibaba Cloud), Google Gemini, Volcengine Jimeng
+
+## Key Features
+
+- Multi-provider switching with model-specific constraints
+- DashScope sync/async protocol handling
+- Volcengine HMAC-SHA256 signed requests
+- Client-side image compression for uploads
+- Optional API key input or server-side `.env` fallback
+- CORS allowlist, rate limiting, and optional frontend access control
+
+## Quick Start
+
+```bash
+npm install
+cp .env.example .env   # configure at least one provider API key
+npm run dev             # starts on http://localhost:3000
+```
+
+## API Endpoints
+
+- `POST /api/generate-image` — Text-to-image generation
+- `POST /api/image-to-image` — Image-to-image transformation
+- `POST /api/access-auth` — Frontend access control authentication
+- `POST /api/access-logout` — Clear auth session
+
+## Documentation
+
+- [README.md](README.md) — Full English documentation
+- [README.zh.md](README.zh.md) — Full Chinese documentation
+- [AGENTS.md](AGENTS.md) — Architecture and development guide for AI agents
+- [CONTRIBUTING.md](CONTRIBUTING.md) — Contribution guidelines
+- [SECURITY.md](SECURITY.md) — Security policy and reporting
+- [CHANGELOG.md](CHANGELOG.md) — Version history
+- [LICENSE](LICENSE) — MIT License
+
+## Supported Models
+
+### DashScope
+wan2.7-image-pro, wan2.7-image, wan2.6-image, wan2.6-t2i, wan2.5-t2i-preview, wan2.2-t2i-flash, wan2.2-t2i-plus, wanx2.1-t2i-turbo, wanx2.1-t2i-plus, wanx2.0-t2i-turbo, qwen-image-2.0-pro, qwen-image-2.0, qwen-image-max, qwen-image-plus, qwen-image, z-image-turbo
+
+### Gemini
+gemini-2.5-flash-image
+
+### Volcengine Jimeng
+jimeng-3.0, jimeng-3.1, jimeng-4.0, jimeng-4.6, jimeng-3.0-i2i, jimeng-material-product, jimeng-material-pod, jimeng-upscale, jimeng-inpainting

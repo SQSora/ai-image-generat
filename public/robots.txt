@@ -1,0 +1,66 @@
+# robots.txt — AI Image Generator
+# https://github.com/wenyinos/ai-image-generator
+
+# Default: allow all well-behaved crawlers
+User-agent: *
+Allow: /
+Disallow: /uploads/
+Disallow: /api/
+
+# LLM/AI Bot access — explicitly welcome
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: Googlebot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: cohere-ai
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: Bytespider
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: Applebot-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Sitemap (if hosted with a domain)
+# Sitemap: https://your-domain.com/sitemap.xml
+
+# LLM context files at root
+# llms.txt      — project summary for LLMs
+# llms-full.txt — full documentation for LLMs
